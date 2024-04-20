@@ -2,30 +2,15 @@ const express = require('express');
 const connect = require('./config/database');
 const app = express();
 
-const TweetRepository = require('./repository/tweet-repository');
-const Comment = require('./models/comment');
+const Tweet = require('./models/tweet');
 
 app.listen(3000, async() => {
 
     console.log('Server started');
     await connect();
     console.log('Mongodb connected');
-
-    const tweetRepo = new TweetRepository();
-
-    // const tweet = await tweetRepo.create({content: 'Tweet with comment schema'});
-    // console.log(tweet);
-    // const comment = await Comment.create({content: 'New comment'});
-    // tweet.comments.push(comment);
-    // await tweet.save();
-    // console.log(tweet);
-
-    // const tweet = await tweetRepo.getWithComments('661a2c7551c07b285b9b1685');
-    // console.log(tweet);
-
-    // const tweet = await tweetRepo.getAll(0,2);
-    // console.log(tweet[0].contentWithEmail);
-
-    // const tweet = await tweetRepo.create({content: 'With the hooks now'});
-    // console.log(tweet);
+    const tweets = await Tweet.find({
+        content: ['My first tweet','Third tweet']
+    })
+    console.log(tweets);
 });
