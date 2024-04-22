@@ -1,8 +1,15 @@
 import express from 'express';
-import { connect } from './config/database.js';
-const app = express();
+import bodyParser from 'body-parser';
 
-import TweetService from './services/tweet-service.js';
+import { connect } from './config/database.js';
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+import apiRoutes from './routes/index.js';
+
+app.use('/api', apiRoutes);
 
 app.listen(3000, async() => {
 
@@ -10,6 +17,4 @@ app.listen(3000, async() => {
     await connect();
     console.log('Mongodb connected');
 
-    let service = new TweetService();
-    await service.create({content: '#This is after #processing really #Excited, Lets #start doing #coding'});
 });
