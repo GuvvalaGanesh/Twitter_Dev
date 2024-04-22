@@ -11,5 +11,5 @@ app.listen(3000, async() => {
     console.log('Mongodb connected');
 
     let service = new TweetService();
-    await service.create({content: '#Done'});
+    await service.create({content: '#This is after #processing really #Excited, Lets #start doing #coding'});
 });
