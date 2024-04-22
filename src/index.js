@@ -1,9 +1,8 @@
-const express = require('express');
-const connect = require('./config/database');
+import express from 'express';
+import { connect } from './config/database.js';
 const app = express();
 
-// const HashtagRepository = require('./repository/hashtag-repository');
-const TweetService = require('./services/tweet-service');
+import TweetService from './services/tweet-service.js';
 
 app.listen(3000, async() => {
 
@@ -11,15 +10,6 @@ app.listen(3000, async() => {
     await connect();
     console.log('Mongodb connected');
 
-    /*const repo = new HashtagRepository();
-    let response = await repo.findByName(['Trend','Java']);
-    console.log(response);
-    response = response.map(tags => tags.title);
-    console.log(response);*/
-
-    const repo = new TweetService();
-    const tweet = await repo.create({
-        content: 'This is after #processing really #Excited, Lets #start doing #coding'
-    });
-    console.log(tweet);
+    let service = new TweetService();
+    await service.create({content: '#Done'});
 });
