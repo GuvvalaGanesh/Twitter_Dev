@@ -20,11 +20,10 @@ class LikeService {
             onModel: modelType,
             likeable: modelId
         });
-        console.log('exists', exists);
         if(exists) {
             likeable.likes.pull(exists.id);
             await likeable.save();
-            await exists.remove();
+            await exists.deleteOne();
             var isAdded = false;
         } else {
             const newLike = await this.likeRepository.create({
